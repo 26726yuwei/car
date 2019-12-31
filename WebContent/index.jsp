@@ -53,6 +53,8 @@
     <!--当前链接则添加class:active-->
     <dd><a href="CarServlet?method=listAll" class="active">车辆列表</a></dd>
     <dd><a href="CarServlet?method=add">添加二手车</a></dd>
+    <dd><a href="CarServlet?method=update">修改二手车二手车</a></dd>
+    <dd><a href="CarServlet?method=delete">删除二手车</a></dd>
    </dl>
   </li>
   <li>
@@ -60,6 +62,13 @@
     <dt>新闻模块</dt>
     <dd><a href="order_list.html">新闻列表</a></dd>
     <dd><a href="order_detail.html">添加新闻</a></dd>
+   </dl>
+  </li>
+  <li>
+   <dl>
+    <dt>中介模块</dt>
+    <dd><a href="order_list.html">中介列表</a></dd>
+    <dd><a href="order_detail.html">添加中介</a></dd>
    </dl>
   </li>
  </ul>

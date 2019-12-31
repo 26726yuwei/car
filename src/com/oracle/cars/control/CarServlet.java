@@ -26,40 +26,58 @@ public class CarServlet extends HttpServlet {
 		switch (method) {
 			case "listAll":
 			{
-				System.out.println("查询显示有的后台方法");
-				//1.调用dao方法查询所有的车辆信息
+				System.out.println("��ѯ��ʾ���к�̨����");
+				
 				List<Car> cars=dao.listAll();
 				
 				System.out.println(cars.size());
-				//2.将查询出来的数据存储到request范围内
+				
 				request.setAttribute("cars", cars);
-				//3.跳转到显示所有车辆的jsp页面上
+				
 				request.getRequestDispatcher("carList.jsp").forward(request, response);
 				break;
 			}
 			case "add":
 			{
-				System.out.println("添加二手车的方法");
+				System.out.println("���Ӷ��ֳ�����");
+				String pinpaiming=request.getParameter("pinpaiming");
+				String xilie=request.getParameter("xilie");
+				
+				String gonglishu=request.getParameter("gonglishu");
+				
+				String yanse=request.getParameter("yanse");
+				String shoujia=request.getParameter("shoujia");
+				Car car=new Car();
+				car.setGonglishu(Integer.parseInt(gonglishu));
+				car.setPinpaiming(pinpaiming);
+				car.setShoujia(Integer.parseInt(shoujia));
+				car.setXielie(xilie);
+				car.setYanse(yanse);
+				
+				boolean result=dao.addCar(car);
+			    if(result) {
+			    	request.getRequestDispatcher("CarServlet?method=lisAll").forward(request,response);
+			    }else {
+			    	request.getRequestDispatcher("carAdd.jsp?").forward(request,response);
+			    }
+				
+				
 				break;
 			}
 			case "delete":
 			{
-				System.out.println("删除二手车的方法");
-				//1.获取页面超链接传过来的要删除的车辆id
+				System.out.println("ɾ�����ֳ�����");
 				String carid=request.getParameter("carid");
 				
-				//2.调用dao的删除方法删除这个车辆信息
 				boolean result=dao.deleteCar(Integer.parseInt(carid));
-				//3.将删除操作的结果存储到request范围内，然后到页面判断结果提示用户
 				request.setAttribute("deleteResult", result);
 				
-				//4.删除执行完毕，无论成功还是失败都要跳转到列表页面
 				request.getRequestDispatcher("CarServlet?method=listAll").forward(request, response);
 				break;
 			}
 			case "update":
 			{
-				System.out.println("修改二手车的方法");
+				System.out.println("�޸Ķ��ֳ�����");
 				break;
 			}
 		}

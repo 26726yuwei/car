@@ -1,6 +1,5 @@
 package com.oracle.cars.model;
 /**
- * 这是汽车模块的dao类，里面提供与汽车相关的数据库操作方法
  * @author Administrator
  *
  */
@@ -16,15 +15,11 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 public class CarDAO {
 
-	/**
-	 * 这是查询显示所有的车辆的dao方法
-	 * @return
-	 */
 	public  List<Car>  listAll(){
 		List<Car>  cars=null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/cars2", "root", "root");
+			Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/cars3", "root", "root");
 			QueryRunner run = new QueryRunner();
 			ResultSetHandler<List<Car>> h = new BeanListHandler<Car>(Car.class);
 			cars= run.query(connection,"SELECT * FROM car", h);
@@ -43,9 +38,22 @@ public class CarDAO {
 		boolean result=false;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/cars2", "root", "root");
+			Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/cars3", "root", "root");
 			QueryRunner run = new QueryRunner();
 			 int count=run.update(connection, "delete from car where carid=?",carid);
+			 result=count>0?true:false;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public boolean  addCar(Car c) {
+		boolean result=false;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/cars3", "root", "root");
+			QueryRunner run = new QueryRunner();
+			 int count=run.update(connection, "insert into(pinpaiming,xilie,gonglishu,yanse,shoujia) car(?,?,?,?,?)",c.getPinpaiming(),c.getXielie(),c.getGonglishu(),c.getYanse(),c.getShoujia());
 			 result=count>0?true:false;
 		} catch (Exception e) {
 			e.printStackTrace();
